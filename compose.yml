@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  cas:
+    container_name: cas
+    build: .
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    volumes:
+      - "./rootfs/etc/cas/config:/etc/cas/config"
+      - "./rootfs/etc/cas/services:/etc/cas/services"
+  wiki:
+    container_name: wiki
+    image: ghcr.io/requarks/wiki:2
+    ports:
+      - "3000:3000"
+    environment:
+      DB_TYPE: sqlite
+      TZ: Europe/Paris
+      DB_FILEPATH: /wiki/db/database.sqlite
+    volumes:
+      - "./db:/wiki/db"
