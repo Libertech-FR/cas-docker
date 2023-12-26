@@ -1,0 +1,6 @@
+{
+  "@class": "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId": "^(https?|imaps?|http?)://host.docker.internal:3000.*",
+  "name": "wiki",
+  "id": 1675427745
+}
