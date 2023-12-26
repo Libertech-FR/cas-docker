@@ -12,7 +12,7 @@ RUN git clone --branch $CAS_BRANCH_VERSION --single-branch https://github.com/ap
 
 WORKDIR /tmp/cas-overlay
 
-COPY src/ /tmp/cas-overlay/src/
+COPY src/ /tmp/cas-overlay/
 
 RUN ./gradlew clean build $EXT_BUILD_COMMANDS --parallel --no-daemon $EXT_BUILD_OPTIONS
 

@@ -1,5 +1,5 @@
 {
-  "@class" : "org.apereo.cas.services.RegexRegisteredService",
+  "@class" : "org.apereo.cas.services.CasRegisteredService",
   "serviceId" : ".*",
   "name" : "Everything",
   "id" : 1,
@@ -7,6 +7,6 @@
   "evaluationOrder" : 1,
   "proxyPolicy" : {
     "@class" : "org.apereo.cas.services.RegexMatchingRegisteredServiceProxyPolicy",
-    "pattern": "^https?://.*"
+    "pattern": "^(https?|imaps?|http?)://.*"
   }
 }
