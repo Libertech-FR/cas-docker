@@ -1,19 +1,25 @@
-ARG BASE_IMAGE="azul/zulu-openjdk:21"
+ARG BASE_IMAGE="eclipse-temurin:11-jdk"
 ARG EXT_BUILD_COMMANDS=""
 ARG EXT_BUILD_OPTIONS=""
 
 FROM $BASE_IMAGE as overlay
+ENV CAS_BRANCH_VERSION=6.6
 
-RUN cd /tmp && \
-    apt-get update && \
-    apt-get install -y git && \
-    git clone -b master --single-branch https://github.com/apereo/cas-overlay-template.git cas-overlay
+RUN apt-get update && \
+    apt-get install -y git
+
+RUN git clone --branch $CAS_BRANCH_VERSION --single-branch https://github.com/apereo/cas-overlay-template.git /tmp/cas-overlay
 
 WORKDIR /tmp/cas-overlay
 
 COPY src/ /tmp/cas-overlay/src/
 
 RUN ./gradlew clean build $EXT_BUILD_COMMANDS --parallel --no-daemon $EXT_BUILD_OPTIONS
+
+RUN ls -la /tmp/cas-overlay/build/libs/cas.war
+
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /var/tmp/*
 
 FROM $BASE_IMAGE as cas
 
