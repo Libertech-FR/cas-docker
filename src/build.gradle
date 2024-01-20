@@ -275,12 +275,11 @@ dependencies {
      * since versions are all resolved and controlled by the dependency management
      * plugin via the CAS bom.
      **/
-    implementation "org.apereo.cas:cas-server-support-rest"
-
-
-    testImplementation "org.springframework.boot:spring-boot-starter-test"
-
-
-    implementation "org.apereo.cas:cas-server-core-services"
-    implementation "org.apereo.cas:cas-server-support-json-service-registry"
+   implementation "org.apereo.cas:cas-server-webapp-init:${project.'cas.version'}"
+   implementation "org.apereo.cas:cas-server-support-ldap:${project.'cas.version'}"
+   implementation "org.apereo.cas:cas-server-support-json-service-registry:${project.'cas.version'}"
+   implementation "org.apereo.cas:cas-server-support-saml-idp:${project.'cas.version'}"
+   implementation "org.apereo.cas:cas-server-support-oidc:${project.'cas.version'}"
+   implementation "org.apereo.cas:cas-server-support-themes-collection:${project.'cas.version'}"
+   implementation "org.apereo.cas:cas-server-support-generic:${project.'cas.version'}"
 }

@@ -1,0 +1,10 @@
+version: "3"
+services:
+  dc:
+    container_name: dc
+    build: . 
+    ports: 
+      - "8080:8080"
+    volumes: 
+      - "./CAS:/etc/cas"
+    env_file: .env

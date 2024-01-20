@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cp -r /etc/cas/themes/* /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom
+echo "Le theme a été mis à jour"
