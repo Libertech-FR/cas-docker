@@ -1,6 +1,0 @@
-{
-  "@class" : "org.apereo.cas.services.CasRegisteredService",
-  "serviceId" : "^(https?|imaps?|http?)://host.docker.internal:3000.*",
-  "name" : "wiki",
-  "id" : 1675427745
-}

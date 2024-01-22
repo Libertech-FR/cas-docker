@@ -1,5 +1,5 @@
 ARG BASE_IMAGE="eclipse-temurin:11-jdk"
-ARG PROD_IMAGE="tomcat:9-jdk11"
+ARG PROD_IMAGE="tomcat:9-jre11"
 ARG EXT_BUILD_COMMANDS=""
 ARG EXT_BUILD_OPTIONS=""
 
@@ -65,12 +65,19 @@ COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/images/cas-logo.
 
 #some documentations 
 COPY --from=overlay /tmp/cas-overlay/config-metadata.properties /etc/cas/docs
+
 RUN mkdir /data/templates
+# repertoire pour les certificats 
+RUN mkdir /etc/cert
+
 COPY --from=overlay /tmp/cas-overlay/build/cas-resources/templates/ /data/templates
 
 #templates
 COPY --from=overlay /tmp/cas-overlay/build/cas-resources/templates/ /usr/local/tomcat/webapps/cas/WEB-INF/classes/templates/custom 
 COPY rootfs /
+
+EXPOSE 80
+EXPOSE 443
 
 ENTRYPOINT "/entrypoint.sh"
 

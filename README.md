@@ -12,7 +12,7 @@ Elle embarque les protocoles suivant :
 
 D'autre protocoles seront ajoutés dans des versions ultérieures comme le MFA. 
  
-## Deployment 
+## Deploiment 
 
 ### Fichier .env
 creer un fichier **.env** qui doit se trouver dans le meme repoertoire que docker-compose.yml
@@ -49,9 +49,11 @@ services:
     build: ghcr.io/libertech-fr/cas-docker:latest
     ports: 
       - "80:80"
-  - "443:443"
+      - "443:443"
     volumes: 
-      - "./conf:/etc/cas"
+      - "./CAS:/etc/cas"
+      - "./cert:/etc/cert"
+      - "./logs:/data/logs"
     env_file: .env
 ```
 
@@ -64,3 +66,63 @@ Au premier demarrage le container va creer :
 * /etc/cas/saml : pour la signature des requetes saml
 
 Une fois ces fichiers générés vous pouvez les modifier à volonté. Ils seront exploités par le container mais ils ne seront plus générés. 
+
+## Volumes 
+3 repertoires doivent être mappé : 
+* /etc/cas : il contiendra la configuration, le thème et les modèles
+* /etc/cert : il doit contenir les certificats (cert.pem, privkey.pem, chain.pem)
+* /data/logs : il contient les journaux de tomcat et de cas 
+
+## Personalisation
+L'interface est entierement personalisable 
+Apres le premier lancement un repertoire theme et templates ont été créé dans le volume /etc/cas
+### Theme
+* theme/css/cas.css : fichier css de personalisation de l'interface
+* theme/images/mylogo.png : le logo qui apparaitra sur l'interface
+* theme/images/facivon.icon : l'icône 
+
+Une fois le thème changé vous devez le mettre à jour dans le container : 
+
+```
+#docker exec cas-server updatetheme
+```
+
+Vous pouvez revenir au thème par defaut avec ces commandes (cas-server etant le nom du container): 
+
+
+```
+#docker exec cas-server resettheme
+#docker exec cas-server updatetheme
+```
+
+### Templates 
+Les templates permettent de modifier des pages. Les headers, footer etc... se trouvent dans templates/custom/fragments
+* Voir la documentation : (https://apereo.github.io/cas/6.6.x/ux/User-Interface-Customization-Themes.html#themed-views)
+
+Une fois les fichiers modifiés vous devez les mettre à jour dans le container : 
+
+```
+#docker exec cas-server updatetemplates
+
+```
+
+Vous pouvez remettre les templates par défaut avec ces commandes : 
+
+
+```
+#docker exec cas-server resettemplates
+```
+
+# CAS modification de l'image 
+Pour modifier l'image cloner ce dêpot
+
+## Pour ajouter un module 
+* Modifier le fichier **src/build.gradle** pour y inclure le dêpot (voir documentation de CAS)
+
+## Pour modifier le fichier de configuration par défaut 
+* fichier : **rootfs/data/rootfs/data/etc/cas.properties**
+
+Remplacer dans docker-compose la ligne image par build: .
+
+
+
