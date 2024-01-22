@@ -6,9 +6,11 @@ Cette image a pour but de fournir au administrateurs un serveur CAS facile à me
 L'image Docker a été conçue pour que l'aspect et le paramêtrage soient aisés. 
 
 Elle embarque les protocoles suivant : 
+
 * LDAP
-* OIDC (Oauth, openId)
-* SAML (saml1, saml2)
+* OIDC (OpenId connect) (https://apereo.github.io/cas/6.6.x/authentication/OIDC-Authentication.html) 
+* SAMLv2 (https://apereo.github.io/cas/6.6.x/authentication/Configuring-SAML2-Authentication.html) 
+* SAMLv1 (https://apereo.github.io/cas/6.6.x/protocol/SAML-Protocol.html) 
 
 D'autre protocoles seront ajoutés dans des versions ultérieures comme le MFA. 
  
