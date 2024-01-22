@@ -10,7 +10,7 @@ if [ ! -f /etc/cas/config/cas.properties ] ; then
         cat /data/etc/cas.properties|envsubst >/etc/cas/config/cas.properties
 fi
 if [ ! -f /etc/cas/config/log4j2.xml ]; then
-     cp data/etc/log4j2.xml /etc/cas/config/log4j2.xml
+     cp /data/etc/log4j2.xml /etc/cas/config/log4j2.xml
 fi
 if [ ! -f /etc/cas/thekeystore ] ; then
     echo "generate keystore"
@@ -24,12 +24,16 @@ fi
 
 if [ ! -d /etc/cas/templates/custom ] ; then
     mkdir -p /etc/cas/templates/custom 2>/dev/null
-    cp -r  /data/templates/* /etc/cas/templates/custom
+    cp -r  /usr/local/tomcat/webapps/cas/WEB-INF/classes/templates/custom/*  /etc/cas/templates/custom
+else 
+    echo "Update templates"
+    cp -r  /etc/cas/templates/custom/ /usr/local/tomcat/webapps/cas/WEB-INF/classes/templates/custom/
+
 fi 
 
 if [ ! -d /etc/cas/themes/css ] ; then
     echo "Creation themes"
-    mkdir /etc/cas/themes
+    mkdir /etc/cas/themes 2>/dev/null
     cp -r /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom/* /etc/cas/themes
 else
     echo "Update themes"

@@ -47,15 +47,29 @@ RUN mkdir -p /data/logs
 WORKDIR /data/logs
 RUN mkdir -p /etc/cas/docs
 COPY --from=overlay /tmp/tomcat /usr/local/tomcat/webapps
+#copie du theme
 COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/css/cas.css /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom/css/
 COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/js/cas.js /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom/js/
 COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/favicon.ico /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom/images/
 COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/images/cas-logo.png /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom/images/mylogo.png
+
+# sauvegarde du theme
+RUN mkdir /data/theme 
+RUN mkdir /data/theme/css 
+RUN mkdir /data/theme/js 
+RUN mkdir /data/theme/images 
+COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/css/cas.css /data/theme/css/
+COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/js/cas.js /data/theme/js
+COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/favicon.ico  /data/theme/images
+COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/images/cas-logo.png /data/theme/images
+
+#some documentations 
 COPY --from=overlay /tmp/cas-overlay/config-metadata.properties /etc/cas/docs
 RUN mkdir /data/templates
 COPY --from=overlay /tmp/cas-overlay/build/cas-resources/templates/ /data/templates
 
-COPY /data/templates/ /usr/local/tomcat/webapps/cas/WEB-INF/classes//templates/custom 
+#templates
+COPY --from=overlay /tmp/cas-overlay/build/cas-resources/templates/ /usr/local/tomcat/webapps/cas/WEB-INF/classes/templates/custom 
 COPY rootfs /
 
 ENTRYPOINT "/entrypoint.sh"

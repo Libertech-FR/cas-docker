@@ -1,0 +1,3 @@
+#!/bin/bash
+cp -r  /etc/cas/templates/* /usr/local/tomcat/webapps/cas/WEB-INF/classes/templates/
+echo "Les templates ont été mis à jour"

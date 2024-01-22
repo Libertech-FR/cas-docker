@@ -1,0 +1,3 @@
+#!/bin/bash
+cp -r  /data/templates/* /etc/cas/templates/custom
+echo "Les templates ont été restaurés"

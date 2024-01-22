@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cp -r /data/theme/* /etc/theme
+echo "Le theme a été mis à remis par defaut"
