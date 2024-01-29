@@ -50,6 +50,7 @@ COPY --from=overlay /tmp/tomcat /usr/local/tomcat/webapps
 #copie du theme
 COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/css/cas.css /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom/css/
 COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/js/cas.js /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom/js/
+COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/js/material.js /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom/js/
 COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/favicon.ico /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom/images/
 COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/images/cas-logo.png /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom/images/mylogo.png
 
