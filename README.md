@@ -23,7 +23,7 @@ Il contient votre environnement :
 ``` 
 CAS_HOSTNAME=https://cas.mondomain.com
 LDAP_HOSTNAME=ldap://ildap.mondomaine.com:389
-LDAP_SEARCH_FILTER="(&(uid={user})(objectclass=sogxuser))"
+LDAP_SEARCH_FILTER=(&(uid={user})(objectclass=sogxuser))
 LDAP_BASE=dc=mondamine,dc=com
 LDAP_ATTRIBUTES_LIST=cn,givenName,mail,sn,uid,uid:username
 LDAP_BIND_DN=CN=restreint,CN=internal,DC=mondomaine,DC=com
@@ -48,7 +48,7 @@ version: "3"
 services:
   cas-server:
     container_name: cas-server
-    build: ghcr.io/libertech-fr/cas-docker:latest
+    image: ghcr.io/libertech-fr/cas-docker:latest
     ports: 
       - "80:80"
       - "443:443"
