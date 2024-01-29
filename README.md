@@ -14,17 +14,17 @@ Elle embarque les protocoles suivant :
 
 D'autre protocoles seront ajoutés dans des versions ultérieures comme le MFA. 
  
-## Deploiment 
+## Deploiement 
 
 ### Fichier .env
-creer un fichier **.env** qui doit se trouver dans le meme repoertoire que docker-compose.yml
+créer un fichier **.env** qui doit se trouver dans le meme répertoire que docker-compose.yml
 Il contient votre environnement : 
 
 ``` 
 CAS_HOSTNAME=https://cas.mondomain.com
-LDAP_HOSTNAME=ldap://ildap.mondomaine.com:389
+LDAP_HOSTNAME=ldap://ldap.mondomaine.com:389
 LDAP_SEARCH_FILTER=(&(uid={user})(objectclass=sogxuser))
-LDAP_BASE=dc=mondamine,dc=com
+LDAP_BASE=dc=mondomaine,dc=com
 LDAP_ATTRIBUTES_LIST=cn,givenName,mail,sn,uid,uid:username
 LDAP_BIND_DN=CN=restreint,CN=internal,DC=mondomaine,DC=com
 LDAP_BIND_CREDENTIAL=MonMotDePasse!
@@ -32,7 +32,7 @@ LDAP_BIND_CREDENTIAL=MonMotDePasse!
 ```
 Ce fichier contient les variables d'environnement pour le container.
 
-* CAS_HOSTNAME : c'est lde FDQN du serveur lui même (variable **cas.server.prefix** du fichier de configuration /etc/cas/config/cas.properties)
+* CAS_HOSTNAME : c'est lde FDQN du serveur lui même (variable **cas.server.name** du fichier de configuration /etc/cas/config/cas.properties)
 * LDAP_HOSTNAME : Adresse du serveur LDAP sous forme URI
 * LDAP_SEARCH : filtre de recherche pour les utilisateur. Le nom d'utilisateur est representé par {user}. 
 * LDAP_BASE : La base de recherche LDAP
@@ -41,7 +41,7 @@ Ce fichier contient les variables d'environnement pour le container.
 * LDAP_BIND_CREDENTIAL : le mote de passe pour ce DN 
 
 ### Fichier docker-compose.yml
-pour pouvoir rendre persistant les changements un volume doit pouvoir etre mappé. Si ce volume est vice le container créera automatiquement l'arborescense et les differents fichiers de configuration. 
+pour pouvoir rendre persistant les changements un volume doit être mappé. Si ce volume est vide le container créera automatiquement l'arborescense et les différents fichiers de configuration. 
 
 ```
 version: "3"
@@ -53,7 +53,7 @@ services:
       - "80:80"
       - "443:443"
     volumes: 
-      - "./CAS:/etc/cas"
+      - "./etc:/etc/cas"
       - "./cert:/etc/cert"
       - "./logs:/data/logs"
     env_file: .env
@@ -70,13 +70,13 @@ Au premier demarrage le container va creer :
 Une fois ces fichiers générés vous pouvez les modifier à volonté. Ils seront exploités par le container mais ils ne seront plus générés. 
 
 ## Volumes 
-3 repertoires doivent être mappé : 
-* /etc/cas : il contiendra la configuration, le thème et les modèles
+3 repertoires doivent être mappés : 
+* /etc/cas : il contiendra la configuration, le thème et les modèles.
 * /etc/cert : il doit contenir les certificats (cert.pem, privkey.pem, chain.pem)
 * /data/logs : il contient les journaux de tomcat et de cas 
 
 ## Personalisation
-L'interface est entierement personalisable 
+L'interface est entierement personalisable.
 Apres le premier lancement un repertoire theme et templates ont été créé dans le volume /etc/cas
 ### Theme
 * theme/css/cas.css : fichier css de personalisation de l'interface
@@ -96,9 +96,11 @@ Vous pouvez revenir au thème par defaut avec ces commandes (cas-server etant le
 #docker exec cas-server resettheme
 #docker exec cas-server updatetheme
 ```
+ou en commentant la variable **cas.theme.default-theme-name=custom** dans le fichier cas-properties
 
 ### Templates 
-Les templates permettent de modifier des pages. Les headers, footer etc... se trouvent dans templates/custom/fragments
+Les templates permettent de modifier des pages. Les headers, footer etc... se trouvent dans **templates/custom/fragments**
+
 * Voir la documentation : (https://apereo.github.io/cas/6.6.x/ux/User-Interface-Customization-Themes.html#themed-views)
 
 Une fois les fichiers modifiés vous devez les mettre à jour dans le container : 
@@ -116,7 +118,9 @@ Vous pouvez remettre les templates par défaut avec ces commandes :
 ```
 
 # CAS modification de l'image 
-Pour modifier l'image cloner ce dêpot
+Vous devez 	voir git et docker installés sur la machine.
+
+Pour modifier l'image cloner ce dêpot.
 
 ## Pour ajouter un module 
 * Modifier le fichier **src/build.gradle** pour y inclure le dêpot (voir documentation de CAS)
