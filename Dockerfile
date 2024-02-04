@@ -5,9 +5,19 @@ ARG EXT_BUILD_OPTIONS=""
 
 FROM $BASE_IMAGE as overlay
 ENV CAS_BRANCH_VERSION=6.6
+ENV MGNT_BRANCH_VERSION=6.6.x
 
 RUN apt-get update && \
-    apt-get install -y git
+    apt-get install -y git 
+
+# MANAGEMENT 
+
+RUN git clone --branch $MGNT_BRANCH_VERSION  https://github.com/apereo/cas-management.git /tmp/cas-management
+
+WORKDIR /tmp/cas-management
+
+RUN ./gradlew clean build $EXT_BUILD_COMMANDS --parallel --no-daemon $EXT_BUILD_OPTIONS
+
 
 RUN git clone --branch $CAS_BRANCH_VERSION --single-branch https://github.com/apereo/cas-overlay-template.git /tmp/cas-overlay
 
@@ -33,14 +43,13 @@ RUN ls /tmp/cas-overlay/build/app
 RUN mv /tmp/cas-overlay/build/app /tmp/tomcat/cas
 
 
-
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /var/tmp/*
 
 FROM $PROD_IMAGE as cas
 
 RUN apt-get update && \
-    apt-get install -y gettext-base
+    apt-get install -y gettext-base unzip
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /var/tmp/*
 RUN mkdir -p /data/logs
@@ -53,6 +62,12 @@ COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/js/cas.js /usr/l
 COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/js/material.js /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom/js/
 COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/favicon.ico /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom/images/
 COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/images/cas-logo.png /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom/images/mylogo.png
+
+# Install management 
+COPY --from=overlay /tmp/cas-management/webapp/cas-mgmt-webapp/build/libs/cas-mgmt-webapp-6.6.5-SNAPSHOT.war /usr/local/tomcat/webapps
+RUN mkdir /usr/local/tomcat/webapps/cas-management
+RUN unzip /usr/local/tomcat/webapps/cas-mgmt-webapp-6.6.5-SNAPSHOT.war -d /usr/local/tomcat/webapps/cas-management
+RUN rm -rf /usr/local/tomcat/webapps/cas-mgmt-webapp-6.6.5-SNAPSHOT.war
 
 # sauvegarde du theme
 RUN mkdir /data/theme 
