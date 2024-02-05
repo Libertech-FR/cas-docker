@@ -21,6 +21,9 @@ fi
 if [ ! -f /etc/cas/config/log4j2.xml ]; then
      cp /data/etc/log4j2.xml /etc/cas/config/log4j2.xml
 fi
+if [ ! -f /etc/cas/config/admin-users.json ]; then
+     cp /data/etc/admin-users.json /etc/cas/config
+fi
 if [ ! -f /etc/cas/thekeystore ] ; then
     echo "generate keystore"
     cd /etc/cas 
