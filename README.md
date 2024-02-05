@@ -117,6 +117,15 @@ Vous pouvez remettre les templates par défaut avec ces commandes :
 #docker exec cas-server resettemplates
 ```
 
+# CAS interface d'administration 
+L'interface d'administration est accessible par CAS_HOSTNAME/cas-management
+
+## Comptes pouvant y avoir acces 
+Modifier le fichier etc/config/admin-users.json. Mettre l'id CAS (le login) à la place de casuser.
+
+ATTENTION : Pour l'instant l'interface est mise à titre de tests
+
+
 # CAS modification de l'image 
 Vous devez 	voir git et docker installés sur la machine.
 
