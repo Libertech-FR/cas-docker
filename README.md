@@ -49,9 +49,7 @@ services:
   cas-server:
     container_name: cas-server
     image: ghcr.io/libertech-fr/cas-docker:latest
-    ports: 
-      - "80:80"
-      - "443:443"
+    network_mode: "host"
     volumes: 
       - "./etc:/etc/cas"
       - "./cert:/etc/cert"
@@ -93,7 +91,7 @@ Vous pouvez revenir au thème par defaut avec ces commandes (cas-server etant le
 
 
 ```
-#docker exec cas-server resettheme
+#docker exec cas-server resetthemes
 #docker exec cas-server updatetheme
 ```
 ou en commentant la variable **cas.theme.default-theme-name=custom** dans le fichier cas-properties
