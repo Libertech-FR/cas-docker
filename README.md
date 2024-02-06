@@ -124,8 +124,12 @@ Modifier le fichier etc/config/admin-users.json. Mettre l'id CAS (le login) à l
 ATTENTION : Pour l'instant l'interface est mise à titre de tests
 
 
-# CAS modification de l'image 
-Vous devez 	voir git et docker installés sur la machine.
+
+
+# CAS modification de l'image (Pour les developpeur)
+NOTE : **Cette parite n'est pas necessaire pour mettre en production**
+
+Vous devez avoir git et docker installés sur la machine.
 
 Pour modifier l'image cloner ce dêpot.
 
