@@ -91,6 +91,8 @@ COPY --from=overlay /tmp/cas-overlay/build/cas-resources/templates/ /data/templa
 #templates
 COPY --from=overlay /tmp/cas-overlay/build/cas-resources/templates/ /usr/local/tomcat/webapps/cas/WEB-INF/classes/templates/custom 
 COPY rootfs /
+#catalina.properties skiplist 
+RUN /usr/bin/scan.sh /usr/local/tomcat >>/usr/local/tomcat/conf/catalina.properties 
 
 EXPOSE 80
 EXPOSE 443
