@@ -124,6 +124,24 @@ Modifier le fichier etc/config/admin-users.json. Mettre l'id CAS (le login) à l
 ATTENTION : Pour l'instant l'interface est mise à titre de tests
 
 
+## Protection par IP de l'Url de management
+Creer un fichier **context.xml** 
+
+
+``` 
+<Context>
+    <Valve className="org.apache.catalina.valves.RemoteIpValve" />
+    <Valve className="org.apache.catalina.valves.RemoteAddrValve" allow="10\.0\.0\.5$" />
+</Context>
+``` 
+
+l'attribut allow est une expression regulière (voir doc tomcat)
+
+Ajouter dans docker-compose.yml un volume 
+
+```
+- "./context.xml:/usr/local/tomcat/webapps/cas-management/META-INF/context.xml"
+```
 
 
 # CAS modification de l'image (Pour les developpeur)
