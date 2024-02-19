@@ -50,6 +50,7 @@ services:
     container_name: cas-server
     image: ghcr.io/libertech-fr/cas-docker:latest
     network_mode: "host"
+    restart: always 
     volumes: 
       - "./etc:/etc/cas"
       - "./cert:/etc/cert"
@@ -61,11 +62,13 @@ Au premier demarrage le container va creer :
 
 * /etc/cas/config/cas.properties avec les variables d'environnement renseignées dans .env.
 * /etc/cas/config/log4j2.xml
-* /etc/cas/theme : le theme (css, js, images)
+* /etc/cas/themes : le theme (css, js, images)
 * /etc/cas/templates/custom : les modeles des pages html du serveur
 * /etc/cas/saml : pour la signature des requetes saml
 
 Une fois ces fichiers générés vous pouvez les modifier à volonté. Ils seront exploités par le container mais ils ne seront plus générés. 
+
+A NOTER : le theme s'appelle **"custom"**
 
 ## Volumes 
 3 repertoires doivent être mappés : 
@@ -75,11 +78,11 @@ Une fois ces fichiers générés vous pouvez les modifier à volonté. Ils seron
 
 ## Personalisation
 L'interface est entierement personalisable.
-Apres le premier lancement un repertoire theme et templates ont été créé dans le volume /etc/cas
+Apres le premier lancement un repertoire themes et templates ont été créé dans le volume /etc/cas
 ### Theme
-* theme/css/cas.css : fichier css de personalisation de l'interface
-* theme/images/mylogo.png : le logo qui apparaitra sur l'interface
-* theme/images/facivon.icon : l'icône 
+* themes/css/cas.css : fichier css de personalisation de l'interface
+* themes/images/mylogo.png : le logo qui apparaitra sur l'interface
+* themes/images/facivon.icon : l'icône 
 
 Une fois le thème changé vous devez le mettre à jour dans le container : 
 
