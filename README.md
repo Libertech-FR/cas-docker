@@ -36,9 +36,9 @@ LDAP_BIND_CREDENTIAL=MonMotDePasse!
 Ce fichier contient les variables d'environnement pour le container.
 
 * CAS_HOSTNAME : c'est lde FDQN du serveur lui même (variable **cas.server.name** du fichier de configuration /etc/cas/config/cas.properties)
-* CAS_URI : l'Uri de cas le serveur sera appelé 
+* CAS_URI : l Uri du serveur (ex: /cas)
 * LDAP_HOSTNAME : Adresse du serveur LDAP sous forme URI
-* LDAP_SEARCH : filtre de recherche pour les utilisateur. Le nom d'utilisateur est representé par {user}. 
+* LDAP_SEARCH : filtre de recherche pour les utilisateurs. Le nom d'utilisateur est representé par {user}. 
 * LDAP_BASE : La base de recherche LDAP
 * LDAP_ATTRIBUTES_LIST : la liste des attributs à renvoyer 
 * LDAP_BIND_DN : le DN pour l authentification LDAP
