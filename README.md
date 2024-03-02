@@ -13,6 +13,8 @@ Elle embarque les protocoles suivant :
 * SAMLv1 (https://apereo.github.io/cas/6.6.x/protocol/SAML-Protocol.html) 
 
 D'autre protocoles seront ajoutés dans des versions ultérieures comme le MFA. 
+
+**Si les repertoires de configuration n'existent pas le container se servira des variables d'environnement pour les créer**
  
 ## Deploiement 
 
@@ -22,6 +24,7 @@ Il contient votre environnement :
 
 ``` 
 CAS_HOSTNAME=https://cas.mondomain.com
+CAS_URI=/cas
 LDAP_HOSTNAME=ldap://ldap.mondomaine.com:389
 LDAP_SEARCH_FILTER=(&(uid={user})(objectclass=sogxuser))
 LDAP_BASE=dc=mondomaine,dc=com
@@ -33,6 +36,7 @@ LDAP_BIND_CREDENTIAL=MonMotDePasse!
 Ce fichier contient les variables d'environnement pour le container.
 
 * CAS_HOSTNAME : c'est lde FDQN du serveur lui même (variable **cas.server.name** du fichier de configuration /etc/cas/config/cas.properties)
+* CAS_URI : l'Uri de cas le serveur sera appelé 
 * LDAP_HOSTNAME : Adresse du serveur LDAP sous forme URI
 * LDAP_SEARCH : filtre de recherche pour les utilisateur. Le nom d'utilisateur est representé par {user}. 
 * LDAP_BASE : La base de recherche LDAP
@@ -84,6 +88,7 @@ Apres le premier lancement un repertoire themes et templates ont été créé da
 * themes/custom/css/cas.css : fichier css de personalisation de l'interface
 * themes/custom/images/mylogo.png : le logo qui apparaitra sur l'interface
 * themes/custom/images/facivon.icon : l'icône 
+* themes/custom/custom.properties : Le fichier de configuration du theme
 
 Une fois le thème changé vous devez le mettre à jour dans le container : 
 

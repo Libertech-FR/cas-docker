@@ -54,7 +54,11 @@ else
     cp -r /etc/cas/themes/* /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes
     cp /etc/cas/themes/*.properties /usr/local/tomcat/webapps/cas/WEB-INF/classes
 fi
-
+# server configuration 
+if [ -z ${CAS_URI} ];then
+  export CAS_URI=/cas
+fi
+cat /data/tomcat/server.xml|envsubst >/usr/local/tomcat/conf/server.xml
 
 
 . /usr/local/tomcat/bin/catalina.sh run
