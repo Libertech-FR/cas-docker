@@ -1,4 +1,5 @@
 #!/bin/bash
 
 cp -r /etc/cas/themes/* /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom
+cp /etc/cas/themes/*.properties /usr/local/tomcat/webapps/cas/WEB-INF/classes
 echo "Le theme a été mis à jour"

@@ -62,8 +62,9 @@ Au premier demarrage le container va creer :
 
 * /etc/cas/config/cas.properties avec les variables d'environnement renseignées dans .env.
 * /etc/cas/config/log4j2.xml
-* /etc/cas/themes : le theme (css, js, images)
-* /etc/cas/templates/custom : les modeles des pages html du serveur
+* /etc/cas/themes/custom : le theme custom (css, js, images)
+* /etc/cas/themes/custom.properties : Le fichier paramètre du theme custom
+* /etc/cas/templates/custom : les modeles des pages html du theme custom
 * /etc/cas/saml : pour la signature des requetes saml
 
 Une fois ces fichiers générés vous pouvez les modifier à volonté. Ils seront exploités par le container mais ils ne seront plus générés. 
@@ -80,14 +81,14 @@ A NOTER : le theme s'appelle **"custom"**
 L'interface est entierement personalisable.
 Apres le premier lancement un repertoire themes et templates ont été créé dans le volume /etc/cas
 ### Theme
-* themes/css/cas.css : fichier css de personalisation de l'interface
-* themes/images/mylogo.png : le logo qui apparaitra sur l'interface
-* themes/images/facivon.icon : l'icône 
+* themes/custom/css/cas.css : fichier css de personalisation de l'interface
+* themes/custom/images/mylogo.png : le logo qui apparaitra sur l'interface
+* themes/custom/images/facivon.icon : l'icône 
 
 Une fois le thème changé vous devez le mettre à jour dans le container : 
 
 ```
-#docker exec cas-server updatetheme
+#docker exec cas-server updatethemes
 ```
 
 Vous pouvez revenir au thème par defaut avec ces commandes (cas-server etant le nom du container): 
@@ -95,7 +96,7 @@ Vous pouvez revenir au thème par defaut avec ces commandes (cas-server etant le
 
 ```
 #docker exec cas-server resetthemes
-#docker exec cas-server updatetheme
+#docker exec cas-server updatethemes
 ```
 ou en commentant la variable **cas.theme.default-theme-name=custom** dans le fichier cas-properties
 

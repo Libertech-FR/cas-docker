@@ -70,14 +70,15 @@ RUN unzip /usr/local/tomcat/webapps/cas-mgmt-webapp-6.6.5-SNAPSHOT.war -d /usr/l
 RUN rm -rf /usr/local/tomcat/webapps/cas-mgmt-webapp-6.6.5-SNAPSHOT.war
 
 # sauvegarde du theme
-RUN mkdir /data/theme 
-RUN mkdir /data/theme/css 
-RUN mkdir /data/theme/js 
-RUN mkdir /data/theme/images 
-COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/css/cas.css /data/theme/css/
-COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/js/cas.js /data/theme/js
-COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/favicon.ico  /data/theme/images
-COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/images/cas-logo.png /data/theme/images
+RUN mkdir /data/themes/ 
+RUN mkdir /data/themes/custom
+RUN mkdir /data/themes/custom/css 
+RUN mkdir /data/themes/custom/js 
+RUN mkdir /data/themes/custom/images 
+COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/css/cas.css /data/themes/custom/css/
+COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/js/cas.js /data/themes/custom/js
+COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/favicon.ico  /data/themes/custom/images
+COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/images/cas-logo.png /data/themes/custom/images
 
 #some documentations 
 COPY --from=overlay /tmp/cas-overlay/config-metadata.properties /etc/cas/docs
@@ -93,7 +94,7 @@ COPY --from=overlay /tmp/cas-overlay/build/cas-resources/templates/ /usr/local/t
 COPY rootfs /
 #catalina.properties skiplist 
 RUN /usr/bin/scan.sh /usr/local/tomcat >>/usr/local/tomcat/conf/catalina.properties 
-
+RUN cp /usr/local/tomcat/webapps/cas/WEB-INF/classes/custom.properties /data/themes
 EXPOSE 80
 EXPOSE 443
 

@@ -43,13 +43,16 @@ else
 
 fi 
 
-if [ ! -d /etc/cas/themes/css ] ; then
+if [ ! -d /etc/cas/themes/custom/css ] ; then
     echo "Creation themes"
-    mkdir /etc/cas/themes 2>/dev/null
-    cp -r /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom/* /etc/cas/themes
+    mkdir -p /etc/cas/themes/custom  2>/dev/null
+    cp -r /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/* /etc/cas/themes
+    cp /usr/local/tomcat/webapps/cas/WEB-INF/classes/*.properties /etc/cas/themes
+    rm -rf /etc/cas/themes/git.properties
 else
     echo "Update themes"
-    cp -r /etc/cas/themes/* /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom
+    cp -r /etc/cas/themes/* /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes
+    cp /etc/cas/themes/*.properties /usr/local/tomcat/webapps/cas/WEB-INF/classes
 fi
 
 
