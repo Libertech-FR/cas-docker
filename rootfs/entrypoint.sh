@@ -39,7 +39,7 @@ if [ ! -d /etc/cas/templates/custom ] ; then
     cp -r  /usr/local/tomcat/webapps/cas/WEB-INF/classes/templates/custom/*  /etc/cas/templates/custom
 else 
     echo "Update templates"
-    cp -r  /etc/cas/templates/custom/ /usr/local/tomcat/webapps/cas/WEB-INF/classes/templates/custom/
+    cp -r  /etc/cas/templates/custom/* /usr/local/tomcat/webapps/cas/WEB-INF/classes/templates/custom/
 
 fi 
 
