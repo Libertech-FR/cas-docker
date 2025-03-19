@@ -9,10 +9,10 @@ if [ ! -f /etc/cas/config/cas.properties ] ; then
         echo "create cas.properties"
         cat /data/etc/cas.properties|envsubst >/etc/cas/config/cas.properties
 fi
-if [ ! -f /etc/cas/config/management.properties ] ; then
-        echo "create management.properties"
-        cat /data/etc/management.properties|envsubst >/etc/cas/config/management.properties
-fi
+#if [ ! -f /etc/cas/config/management.properties ] ; then
+#        echo "create management.properties"
+#        cat /data/etc/management.properties|envsubst >/etc/cas/config/management.properties
+#fi
 if [ ! -f /etc/cas/services/casclient-1.json ] ; then
         echo "create casclient-1.json"
         cat /data/etc/casclient-1.json|envsubst >/etc/cas/services/cas-client-1.json

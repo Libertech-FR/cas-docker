@@ -41,7 +41,6 @@
       <Host name="localhost"  appBase="webapps"
             unpackWARs="false" autoDeploy="false" startStopThreads="0">
         <Context path="${CAS_URI}" docBase="cas"></Context>
-        <Context path="/cas-management" docBase="cas-management"></Context>
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                prefix="localhost_access_log" suffix=".txt"
                pattern="%h %l %u %t &quot;%r&quot; %s %b" />
