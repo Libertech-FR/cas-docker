@@ -12,11 +12,11 @@ RUN apt-get update && \
 
 # MANAGEMENT 
 
-RUN git clone --branch $MGNT_BRANCH_VERSION  https://github.com/apereo/cas-management.git /tmp/cas-management
+#RUN git clone --branch $MGNT_BRANCH_VERSION  https://github.com/apereo/cas-management.git /tmp/cas-management
 
-WORKDIR /tmp/cas-management
+#WORKDIR /tmp/cas-management
 
-RUN ./gradlew clean build $EXT_BUILD_COMMANDS --parallel --no-daemon $EXT_BUILD_OPTIONS
+#RUN ./gradlew clean build $EXT_BUILD_COMMANDS --parallel --no-daemon $EXT_BUILD_OPTIONS
 
 
 RUN git clone --branch $CAS_BRANCH_VERSION --single-branch https://github.com/apereo/cas-overlay-template.git /tmp/cas-overlay
@@ -64,10 +64,10 @@ COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/favicon.ico /usr
 COPY --from=overlay /tmp/cas-overlay/build/cas-resources/static/images/cas-logo.png /usr/local/tomcat/webapps/cas/WEB-INF/classes/static/themes/custom/images/mylogo.png
 
 # Install management 
-COPY --from=overlay /tmp/cas-management/webapp/cas-mgmt-webapp/build/libs/cas-mgmt-webapp-6.6.5-SNAPSHOT.war /usr/local/tomcat/webapps
-RUN mkdir /usr/local/tomcat/webapps/cas-management
-RUN unzip /usr/local/tomcat/webapps/cas-mgmt-webapp-6.6.5-SNAPSHOT.war -d /usr/local/tomcat/webapps/cas-management
-RUN rm -rf /usr/local/tomcat/webapps/cas-mgmt-webapp-6.6.5-SNAPSHOT.war
+#COPY --from=overlay /tmp/cas-management/webapp/cas-mgmt-webapp/build/libs/cas-mgmt-webapp-6.6.5-SNAPSHOT.war /usr/local/tomcat/webapps
+#RUN mkdir /usr/local/tomcat/webapps/cas-management
+#RUN unzip /usr/local/tomcat/webapps/cas-mgmt-webapp-6.6.5-SNAPSHOT.war -d /usr/local/tomcat/webapps/cas-management
+#RUN rm -rf /usr/local/tomcat/webapps/cas-mgmt-webapp-6.6.5-SNAPSHOT.war
 
 # sauvegarde du theme
 RUN mkdir /data/themes/ 
